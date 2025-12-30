@@ -1,4 +1,13 @@
+import { useEffect } from "react";
+import { supabase } from "../lib/SupabaseClient";
+
 function Home() {
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      console.log(data);
+    });
+  });
+
   // 임시 홈 페이지
   return (
     <>
