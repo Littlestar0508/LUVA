@@ -1,1 +1,57 @@
 @import "tailwindcss";
+
+/* LUVA Design Tokens */
+:root {
+  --luva-bg-0: #0b0d12;
+  --luva-bg-1: #0f1220;
+  --luva-surface: #151a2e;
+  --luva-surface-2: #1a2040;
+
+  --luva-text-strong: #ffffff;
+  --luva-text: #c9cfdd;
+  --luva-text-sub: #8f97ad;
+  --luva-text-disabled: #5f677d;
+
+  --luva-line: #242b48;
+  --luva-line-soft: #1c223a;
+
+  --luva-primary: #ff3d7f;
+  --luva-primary-soft: rgba(255, 61, 127, 0.1); /* 8자리 hex 대신 안정 */
+  --luva-primary-pressed: #e6366f;
+
+  --luva-like: #ff3d7f;
+  --luva-chat: #5bffcf;
+  --luva-pass: #8f97ad;
+
+  --luva-success: #38f29d;
+  --luva-warning: #ffb020;
+  --luva-danger: #ff4d4d;
+}
+
+/* Tailwind v4: @theme 로 토큰을 Tailwind 컬러로 노출 */
+@theme {
+  --color-luva-bg-0: var(--luva-bg-0);
+  --color-luva-bg-1: var(--luva-bg-1);
+  --color-luva-surface: var(--luva-surface);
+  --color-luva-surface-2: var(--luva-surface-2);
+
+  --color-luva-text-strong: var(--luva-text-strong);
+  --color-luva-text: var(--luva-text);
+  --color-luva-text-sub: var(--luva-text-sub);
+  --color-luva-text-disabled: var(--luva-text-disabled);
+
+  --color-luva-line: var(--luva-line);
+  --color-luva-line-soft: var(--luva-line-soft);
+
+  --color-luva-primary: var(--luva-primary);
+  --color-luva-primary-soft: var(--luva-primary-soft);
+  --color-luva-primary-pressed: var(--luva-primary-pressed);
+
+  --color-luva-like: var(--luva-like);
+  --color-luva-chat: var(--luva-chat);
+  --color-luva-pass: var(--luva-pass);
+
+  --color-luva-success: var(--luva-success);
+  --color-luva-warning: var(--luva-warning);
+  --color-luva-danger: var(--luva-danger);
+}
