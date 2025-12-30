@@ -9,7 +9,6 @@ function Layout() {
         {/* 공통 헤더 */}
         {/* 페이지 영역 */}
         <main className="px-4 py-3 bg-white">
-          <div className="bg-blue-500 h-200">ㅎㅇ</div>
           <Outlet />
         </main>
         <Footer />
