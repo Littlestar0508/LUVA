@@ -24,7 +24,7 @@ function Footer() {
   };
 
   return (
-    <footer className="flex justify-around items-center h-18 bg-luva-bg-0 sticky bottom-0 right-0 left-0 border-t border-luva-line">
+    <footer className="h-18 bg-luva-bg-0 border-t border-luva-line flex items-center justify-around">
       <button aria-label="홈으로 이동" onClick={moveToHome}>
         <IoHomeSharp color="#8F97AD" size={24} stroke="2px" />
       </button>
