@@ -1,5 +1,6 @@
 import { supabase } from "../lib/SupabaseClient";
 
+// 로그아웃 버튼
 function Logout() {
   const logOut = async () => {
     const { error } = await supabase.auth.signOut();

@@ -1,5 +1,6 @@
 import KakaoLogo from "./KakaoLogo";
 
+// 카카오톡 OAUTH 소셜 로그인, 미구현 상태
 function KakaoLoginButton() {
   return (
     <button

@@ -1,5 +1,6 @@
 import GoogleLoginTest from "./GoogleLoginTest";
 
+// 구글 로그인 버튼, 테스트 구현
 function GoogleLoginButton() {
   return (
     <>

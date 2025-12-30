@@ -9,6 +9,7 @@ function Login() {
         {/* 카카오 로그인 버튼 */}
         <KakaoLoginButton />
 
+        {/* 구글 로그인 버튼 */}
         <GoogleLoginButton />
         <Logout />
       </div>
