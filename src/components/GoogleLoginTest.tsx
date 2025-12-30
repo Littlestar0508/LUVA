@@ -6,7 +6,7 @@ export default function GoogleLoginTest() {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "http://localhost:5173",
+        redirectTo: "http://localhost:5173/home",
       },
     });
 
