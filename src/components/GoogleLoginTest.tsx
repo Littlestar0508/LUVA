@@ -17,5 +17,9 @@ export default function GoogleLoginTest() {
     }
   };
 
-  return <button onClick={loginWithGoogle}>Google 로그인 테스트</button>;
+  return (
+    <button onClick={loginWithGoogle} className="text-white">
+      Google 로그인 테스트
+    </button>
+  );
 }

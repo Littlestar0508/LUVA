@@ -9,7 +9,9 @@ function Logout() {
 
   return (
     <>
-      <button onClick={logOut}>로그아웃</button>
+      <button onClick={logOut} className="text-white">
+        로그아웃
+      </button>
     </>
   );
 }
