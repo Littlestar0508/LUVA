@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/SupabaseClient";
 import { FaHeart } from "react-icons/fa";
-import { FaBell } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
@@ -57,15 +56,6 @@ function Home() {
     <>
       <div className="flex relative justify-center border-b pb-4">
         <img src="../../public/luva-logo-text.svg" className="w-25" />
-        <button
-          aria-label="알림함"
-          onClick={() => {
-            alert("미구현 상태");
-          }}
-          className="absolute right-0"
-        >
-          <FaBell size={28} />
-        </button>
       </div>
       <div className="flex flex-col pt-4 items-center gap-2">
         {/* 프로필 이미지 */}
