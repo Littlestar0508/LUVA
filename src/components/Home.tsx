@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/SupabaseClient";
 import { FaHeart } from "react-icons/fa";
+import { FaBell } from "react-icons/fa";
 
 function Home() {
   const [profileImg, setProfileImg] = useState<string | null>(null);
@@ -30,7 +31,9 @@ function Home() {
   return (
     <>
       <div>
-        <img></img>
+        <img src="../../public/luva-logo-shape.svg" />
+        <img src="../../public/luva-logo-text.svg" className="w-20" />
+        <FaBell />
       </div>
       <div className="flex flex=col">
         <img src={profileImg ?? "../../public/basic_profile.png"}></img>
