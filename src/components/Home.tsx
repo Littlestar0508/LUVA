@@ -56,7 +56,7 @@ function Home() {
     <>
       <div className="flex relative justify-center border-b pb-4">
         <img
-          src="/public/luva-logo-text.svg"
+          src="../../public/luva-logo-text.svg"
           className="w-25"
           aria-label="LUVA"
         />
