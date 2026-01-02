@@ -55,7 +55,11 @@ function Home() {
   return (
     <>
       <div className="flex relative justify-center border-b pb-4">
-        <img src="../../public/luva-logo-text.svg" className="w-25" />
+        <img
+          src="/public/luva-logo-text.svg"
+          className="w-25"
+          aria-label="LUVA"
+        />
       </div>
       <div className="flex flex-col pt-4 items-center gap-2">
         {/* 프로필 이미지 */}
