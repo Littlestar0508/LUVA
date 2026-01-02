@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 function Home() {
   const [profileImg, setProfileImg] = useState<string | null>(null);
   const [nickname, setNickname] = useState<string | null>(null);
+  const [hobby, setHobby] = useState<string | null>(null);
+  const [like, setLike] = useState<number | null>(null);
+  const [place, setPlace] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const moveToMyPage = () => {
@@ -18,23 +21,35 @@ function Home() {
   };
 
   useEffect(() => {
-    const getProfileImgURL = async () => {
+    const getUserData = async () => {
       const { data, error } = await supabase.auth.getSession();
+      const { data: user_info, error: user_info_error } = await supabase
+        .from("user_info")
+        .select()
+        .eq("user_id", data.session?.user.id);
 
       if (error) throw error;
+      if (user_info_error) throw user_info_error;
 
       const user = data.session?.user;
       const user_metadata = user?.user_metadata ?? {};
 
       const profileImgURL =
-        user_metadata.avatar_url ?? user_metadata.picture ?? null;
+        user_info[0].profile_img ??
+        user_metadata.avatar_url ??
+        user_metadata.picture ??
+        null;
 
-      console.log(user_metadata);
+      const userNickname = user_info[0].nickname ?? user_metadata.full_name;
+
+      setHobby(user_info[0].hobby);
+      setLike(user_info[0].like);
       setProfileImg(profileImgURL);
-      setNickname(user_metadata.full_name);
+      setNickname(userNickname);
+      setPlace(user_info[0].place);
     };
 
-    getProfileImgURL();
+    getUserData();
   });
 
   // 임시 홈 페이지
@@ -65,7 +80,7 @@ function Home() {
           <div className="flex items-center justify-center gap-4 bg-luva-line border-luva-line-soft border-2 rounded-lg p-4 flex-1">
             <FaHeart size={24} className="fill-luva-like" />
             {/* 더미 데이터 -> 이후 데이터 fetching예정 */}
-            <p className="text-2xl">10</p>
+            <p className="text-2xl">{like}</p>
           </div>
           <button
             className="flex justify-center items-center gap-4 bg-luva-line border-luva-line-soft border-2 rounded-lg p-4 flex-2 text-2xl"
@@ -83,10 +98,9 @@ function Home() {
         </button>
         {/* 자기소개 container */}
         <div className="bg-luva-line text-2xl w-80 p-4 rounded-2xl border-2 border-luva-line-soft">
-          취미 : 더미데이터
+          취미 : {hobby}
           <br />
-          위치 : 서울
-          <br />
+          위치 : {place}
         </div>
       </div>
     </>
