@@ -60,7 +60,7 @@ function Home() {
       <div className="flex flex-col pt-4 items-center gap-2">
         {/* 프로필 이미지 */}
         <img
-          src={profileImg ?? "../../public/basic_profile.png"}
+          src={profileImg ?? "/basic_profile.png"}
           className="w-80 rounded-2xl"
         />
         {/* 닉네임 */}
