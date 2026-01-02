@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/SupabaseClient";
+import { supabase } from "../utils/SupabaseClient";
 import { FaHeart } from "react-icons/fa";
 import { FaBell } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";

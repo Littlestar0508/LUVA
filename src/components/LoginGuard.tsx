@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import useAuthStatus from "../hooks/useAuthStatus";
+import useAuthStatus from "../utils/useAuthStatus";
 import type { JSX } from "react";
 
 // 로그인 이후에 뒤로가기 방지

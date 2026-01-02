@@ -1,5 +1,5 @@
 import type { JSX } from "react";
-import useAuthStatus from "../hooks/useAuthStatus";
+import useAuthStatus from "../utils/useAuthStatus";
 import { Navigate, useLocation } from "react-router-dom";
 
 // 로그인 되지 않은 상태로 내부를 관찰하려 할 때 로그인 페이지로 되돌리기

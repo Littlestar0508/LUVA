@@ -1,4 +1,4 @@
-import { supabase } from "../lib/SupabaseClient";
+import { supabase } from "../utils/SupabaseClient";
 
 // 로그아웃 버튼
 function Logout() {

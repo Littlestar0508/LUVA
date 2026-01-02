@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/SupabaseClient";
+import { supabase } from "../utils/SupabaseClient";
 
 // 로그인 상태를 관리하는 custom hook
 function useAuthStatus() {

@@ -1,4 +1,4 @@
-import { supabase } from "../lib/SupabaseClient";
+import { supabase } from "../utils/SupabaseClient";
 
 // 구글 OAUTH 소셜 로그인 현재는 localhost 테스트를 위한 코드
 export default function GoogleLoginTest() {
