@@ -70,7 +70,7 @@ function Home() {
           <div className="flex items-center justify-center gap-4 bg-luva-line border-luva-line-soft border-2 rounded-lg p-4 flex-1">
             <FaHeart size={24} className="fill-luva-like" />
             {/* 더미 데이터 -> 이후 데이터 fetching예정 */}
-            <p className="text-2xl">{like}</p>
+            <p className="text-2xl">{like ?? 0}</p>
           </div>
           <button
             className="flex justify-center items-center gap-4 bg-luva-line border-luva-line-soft border-2 rounded-lg p-4 flex-2 text-2xl"
@@ -88,9 +88,9 @@ function Home() {
         </button>
         {/* 자기소개 container */}
         <div className="bg-luva-line text-2xl w-80 p-4 rounded-2xl border-2 border-luva-line-soft">
-          취미 : {hobby}
+          취미 : {hobby ?? "설정하지 않음"}
           <br />
-          위치 : {place}
+          위치 : {place ?? "대한민국"}
         </div>
       </div>
     </>
