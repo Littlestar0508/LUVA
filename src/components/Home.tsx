@@ -13,6 +13,10 @@ function Home() {
     navigate("/mypage");
   };
 
+  const moveToSearch = () => {
+    navigate("/search");
+  };
+
   useEffect(() => {
     const getProfileImgURL = async () => {
       const { data, error } = await supabase.auth.getSession();
@@ -69,6 +73,20 @@ function Home() {
           >
             프로필 편집
           </button>
+        </div>
+        {/* 둘러보기 페이지로 이동 */}
+        <button
+          className="bg-luva-like p-4 text-2xl w-80 rounded-2xl text-luva-text-strong"
+          onClick={moveToSearch}
+        >
+          매칭 시작
+        </button>
+        {/* 자기소개 container */}
+        <div className="bg-luva-line text-2xl w-80 p-4 rounded-2xl border-2 border-luva-line-soft">
+          취미 : 더미데이터
+          <br />
+          위치 : 서울
+          <br />
         </div>
       </div>
     </>
