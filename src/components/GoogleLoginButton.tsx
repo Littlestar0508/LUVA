@@ -1,10 +1,7 @@
 import { supabase } from "../utils/SupabaseClient";
-import useInsertProfileInfo from "../utils/useInsertProfileInfo";
 
 // 구글 로그인 버튼, 테스트 구현
 function GoogleLoginButton() {
-  useInsertProfileInfo();
-
   const loginWithGoogle = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",

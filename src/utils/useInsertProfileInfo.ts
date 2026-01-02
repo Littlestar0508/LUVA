@@ -17,16 +17,31 @@ function useInsertProfileInfo() {
         user.email?.split("@")[0] ??
         `LUVA${user.id.slice(0, 4)}`;
 
-      await supabase.from("user_info").insert([
-        {
-          id: user.id,
-          nickname,
-          profile_img,
-          hobby: "취미를 업데이트 해주세요",
-          like: 0,
-          place: "대한민국",
-        },
-      ]);
+      const { data: existing, error: selectError } = await supabase
+        .from("user_info")
+        .select("id")
+        .eq("id", user.id)
+        .maybeSingle();
+
+      if (selectError) {
+        console.error("user_info select error : ", selectError);
+        return;
+      }
+
+      if (existing) return;
+
+      const { error: insertError } = await supabase.from("user_info").insert({
+        id: user.id,
+        nickname,
+        profile_img,
+        hobby: "취미를 업데이트 해주세요",
+        like: 0,
+        place: "대한민국",
+      });
+
+      if (insertError) {
+        console.error("user_info insert error : ", insertError);
+      }
     });
 
     return () => data.subscription.unsubscribe();
