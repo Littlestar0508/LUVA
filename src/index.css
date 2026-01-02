@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@layer base {
+  body {
+    color: var(--luva-text);
+    background-color: var(--luva-bg-0);
+  }
+}
+
 @layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none; /* IE, Edge */
