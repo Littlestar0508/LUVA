@@ -2,6 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Login from "./components/Login";
 import Layout from "./layout/Layout";
+import LoginGuard from "./components/LoginGuard";
+import RequireLogin from "./components/RequireLogin";
 import Home from "./components/Home";
 import Chat from "./components/Chat";
 import Search from "./components/Search";
@@ -14,8 +16,22 @@ function App() {
       <Routes>
         {/* 모바일 뷰만 나타내기 위한 레이아웃 */}
         <Route element={<Layout />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/login"
+            element={
+              <LoginGuard>
+                <Login />
+              </LoginGuard>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <RequireLogin>
+                <Home />
+              </RequireLogin>
+            }
+          />
           <Route path="/home" element={<Home />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/search" element={<Search />} />
