@@ -9,6 +9,7 @@ function Home() {
   const [hobby, setHobby] = useState<string | null>(null);
   const [like, setLike] = useState<number | null>(null);
   const [place, setPlace] = useState<string | null>(null);
+
   const navigate = useNavigate();
 
   const moveToMyPage = () => {
