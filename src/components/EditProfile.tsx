@@ -52,9 +52,31 @@ function EditProfile() {
     fileInputRef.current?.click();
   };
 
+  // 폼 제출 이벤트
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const form_data = new FormData(form);
+
+    const nickname = String(form_data.get("nickname") ?? "");
+    const place = String(form_data.get("place") ?? "");
+    const hobby = String(form_data.get("hobby") ?? "");
+
+    const profileImg = form_data.get("profile_img");
+    const file =
+      profileImg instanceof File && profileImg.size > 0 ? profileImg : null;
+
+    console.log(nickname, place, hobby, file);
+  };
+
   return (
     <>
-      <form className="flex flex-col items-center gap-4">
+      <form
+        id="edit-profile-form"
+        onSubmit={handleSubmit}
+        className="flex flex-col items-center gap-8"
+      >
         <input
           type="file"
           name="profile_img"
@@ -73,24 +95,31 @@ function EditProfile() {
           닉네임 설정
           <input
             type="text"
+            name="nickname"
             id="fix_nickname"
-            className="border-luva-line border w-full rounded-xl p-1.5"
+            className="border-luva-primary border w-full rounded-xl p-1.5 "
+            placeholder="닉네임은 1글자 이상, 10자 이하로 작성해주시기 바랍니다."
+            maxLength={10}
           ></input>
         </label>
         <label className="w-4/5 text-luva-text-strong flex flex-col gap-1">
           거주지역
           <input
             type="text"
+            name="place"
             id="fix_place"
-            className="border-luva-line border w-full rounded-xl p-1.5"
+            className="border-luva-primary border w-full rounded-xl p-1.5"
+            placeholder="거주지역을 변경해주시기 바랍니다."
           ></input>
         </label>
         <label className="w-4/5 text-luva-text-strong flex flex-col gap-1">
           취미
           <input
             type="text"
+            name="hobby"
             id="fix_hobby"
-            className="border-luva-line border w-full rounded-xl p-1.5"
+            className="border-luva-primary border w-full rounded-xl p-1.5"
+            placeholder="취미를 작성해주시기 바랍니다."
           ></input>
         </label>
         <Toaster position="bottom-center" />

@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Footer from "./Footer";
+import EditProfileFooter from "./EditProfileFooter";
 
 function Layout() {
   const { pathname } = useLocation();
@@ -13,7 +14,9 @@ function Layout() {
       </main>
 
       {/* 항상 화면 하단에 보임 */}
-      {pathname === "/login" || pathname === "/edit-profile" ? null : (
+      {pathname === "/login" ? null : pathname === "/edit-profile" ? (
+        <EditProfileFooter />
+      ) : (
         <Footer />
       )}
     </div>
