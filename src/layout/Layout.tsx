@@ -1,9 +1,11 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Footer from "./Footer";
 import Logout from "../components/Logout";
 import { hardResetAuth } from "./HardResetAuth";
 
 function Layout() {
+  const { pathname } = useLocation();
+
   return (
     // 레이아웃 전체 틀
     <div className="relative mx-auto h-dvh w-full max-w-97.5 min-w-75 bg-luva-bg-0 overflow-hidden flex flex-col">
@@ -15,7 +17,7 @@ function Layout() {
       </main>
 
       {/* 항상 화면 하단에 보임 */}
-      <Footer />
+      {pathname === "/login" ? null : <Footer />}
     </div>
   );
 }
