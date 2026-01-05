@@ -108,6 +108,17 @@ function EditProfile() {
       .select("");
 
     navigate("/mypage");
+
+    if (file) {
+      const { error } = await supabase.storage
+        .from("profile_img")
+        .upload(`${user_profile.id}.png`, file, {
+          upsert: true,
+          contentType: file.type,
+        });
+
+      if (error) throw error;
+    }
   };
 
   return (
