@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-type EditProfileFooterProps = React.ComponentProps<"button">;
-
-function EditProfileFooter({ onClick }: EditProfileFooterProps) {
+function EditProfileFooter() {
   const navigate = useNavigate();
 
   const handleClickCancel = () => {
