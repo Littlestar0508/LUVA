@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Footer from "./Footer";
 import Logout from "../components/Logout";
+import { hardResetAuth } from "./HardResetAuth";
 
 function Layout() {
   return (
@@ -10,6 +11,7 @@ function Layout() {
       <main className="flex-1 overflow-y-auto px-4 py-3 pb-18 scrollbar-hide">
         <Logout />
         <Outlet />
+        <button onClick={() => hardResetAuth}>강제 로그아웃</button>
       </main>
 
       {/* 항상 화면 하단에 보임 */}

@@ -8,11 +8,8 @@ import Home from "./components/Home";
 import Chat from "./components/Chat";
 import Search from "./components/Search";
 import Mypage from "./components/Mypage";
-import useInsertProfileInfo from "./utils/useInsertProfileInfo";
 
 function App() {
-  useInsertProfileInfo();
-
   return (
     <>
       <Routes>

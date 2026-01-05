@@ -41,15 +41,15 @@ function Home() {
 
       const userNickname = user_info[0].nickname ?? user_metadata.full_name;
 
-      setHobby(user_info[0].hobby);
-      setLike(user_info[0].like);
+      setHobby(user_info[0]?.hobby);
+      setLike(user_info[0]?.like);
       setProfileImg(profileImgURL);
       setNickname(userNickname);
-      setPlace(user_info[0].place);
+      setPlace(user_info[0]?.place);
     };
 
     getUserData();
-  });
+  }, []);
 
   // 임시 홈 페이지
   return (
