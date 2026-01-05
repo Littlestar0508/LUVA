@@ -17,7 +17,9 @@ function Layout() {
       </main>
 
       {/* 항상 화면 하단에 보임 */}
-      {pathname === "/login" ? null : <Footer />}
+      {pathname === "/login" || pathname === "/edit-profile" ? null : (
+        <Footer />
+      )}
     </div>
   );
 }
