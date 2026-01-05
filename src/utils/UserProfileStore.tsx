@@ -8,6 +8,7 @@ interface State {
   like: number;
   place: string;
   email: string;
+  id: string;
 }
 
 // 함수 타입
@@ -18,6 +19,7 @@ interface Actions {
   setLike: (like: number) => void;
   setPlace: (place: string) => void;
   setEmail: (email: string) => void;
+  setId: (id: string) => void;
 }
 
 type Store = State & Actions;
@@ -29,6 +31,7 @@ const useUserProfileStore = create<Store>((set) => ({
   like: 0,
   place: "대한민국",
   email: "알 수 없습니다.",
+  id: "",
 
   setNickname: (nickname) => {
     set(() => ({
@@ -63,6 +66,12 @@ const useUserProfileStore = create<Store>((set) => ({
   setEmail: (email) => {
     set(() => ({
       email,
+    }));
+  },
+
+  setId: (id) => {
+    set(() => ({
+      id,
     }));
   },
 }));

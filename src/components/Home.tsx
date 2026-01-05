@@ -57,6 +57,7 @@ function Home() {
       user_profile_info_state.setNickname(userNickname);
       user_profile_info_state.setProfileImg(profileImgURL);
       user_profile_info_state.setEmail(user_metadata.email);
+      user_profile_info_state.setId(data.session?.user.id ?? "");
     };
 
     getUserData();

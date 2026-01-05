@@ -1,9 +1,12 @@
 import { useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import useUserProfileStore from "../utils/UserProfileStore";
+import { supabase } from "../utils/SupabaseClient";
+import { useNavigate } from "react-router-dom";
 
 function EditProfile() {
   const user_profile = useUserProfileStore();
+  const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [img, setImg] = useState<string | ArrayBuffer | null>(
     user_profile.profile_img
@@ -53,7 +56,7 @@ function EditProfile() {
   };
 
   // 폼 제출 이벤트
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const form = e.currentTarget;
@@ -67,7 +70,44 @@ function EditProfile() {
     const file =
       profileImg instanceof File && profileImg.size > 0 ? profileImg : null;
 
-    console.log(nickname, place, hobby, file);
+    if (nickname.length <= 1) {
+      toast("닉네임은 최소 2자에서 최대 10자 사이로 입력해주시기 바랍니다.", {
+        duration: 2000,
+        icon: "⚠️",
+      });
+
+      return;
+    }
+
+    if (place.length <= 1) {
+      toast("거주지역을 입력해주시기 바랍니다.", {
+        duration: 2000,
+        icon: "⚠️",
+      });
+
+      return;
+    }
+
+    if (hobby.length <= 1) {
+      toast("취미를 입력해주시기 바랍니다.", {
+        duration: 2000,
+        icon: "⚠️",
+      });
+
+      return;
+    }
+
+    await supabase
+      .from("user_info")
+      .update({
+        nickname,
+        hobby,
+        place,
+      })
+      .eq("user_id", user_profile.id)
+      .select("");
+
+    navigate("/mypage");
   };
 
   return (
@@ -98,8 +138,9 @@ function EditProfile() {
             name="nickname"
             id="fix_nickname"
             className="border-luva-primary border w-full rounded-xl p-1.5 "
-            placeholder="닉네임은 1글자 이상, 10자 이하로 작성해주시기 바랍니다."
+            placeholder="닉네임은 2글자 이상, 10자 이하로 작성해주시기 바랍니다."
             maxLength={10}
+            defaultValue={user_profile.nickname}
           ></input>
         </label>
         <label className="w-4/5 text-luva-text-strong flex flex-col gap-1">
@@ -110,6 +151,8 @@ function EditProfile() {
             id="fix_place"
             className="border-luva-primary border w-full rounded-xl p-1.5"
             placeholder="거주지역을 변경해주시기 바랍니다."
+            maxLength={20}
+            defaultValue={user_profile.place}
           ></input>
         </label>
         <label className="w-4/5 text-luva-text-strong flex flex-col gap-1">
@@ -120,6 +163,8 @@ function EditProfile() {
             id="fix_hobby"
             className="border-luva-primary border w-full rounded-xl p-1.5"
             placeholder="취미를 작성해주시기 바랍니다."
+            maxLength={20}
+            defaultValue={user_profile.hobby}
           ></input>
         </label>
         <Toaster position="bottom-center" />
