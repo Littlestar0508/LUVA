@@ -6,7 +6,7 @@ function GoogleLoginButton() {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "http://localhost:5173/home",
+        redirectTo: "https://luvaa.vercel.app/home",
       },
     });
 
