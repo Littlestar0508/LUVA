@@ -81,7 +81,7 @@ function EditProfile() {
           거주지역
           <input
             type="text"
-            id="fix_nickname"
+            id="fix_place"
             className="border-luva-line border w-full rounded-xl p-1.5"
           ></input>
         </label>
@@ -89,7 +89,7 @@ function EditProfile() {
           취미
           <input
             type="text"
-            id="fix_nickname"
+            id="fix_hobby"
             className="border-luva-line border w-full rounded-xl p-1.5"
           ></input>
         </label>
