@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../utils/SupabaseClient";
 import { FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import useUserProfileStore from "../utils/UserProfileStore";
 
 function Home() {
   const [profileImg, setProfileImg] = useState<string | null>(null);
@@ -9,6 +10,8 @@ function Home() {
   const [hobby, setHobby] = useState<string | null>(null);
   const [like, setLike] = useState<number | null>(null);
   const [place, setPlace] = useState<string | null>(null);
+
+  const user_profile_info_state = useUserProfileStore();
 
   const navigate = useNavigate();
 
@@ -47,6 +50,12 @@ function Home() {
       setProfileImg(profileImgURL);
       setNickname(userNickname);
       setPlace(user_info[0]?.place);
+
+      user_profile_info_state.setHobby(user_info[0]?.hobby);
+      user_profile_info_state.setPlace(user_info[0]?.place);
+      user_profile_info_state.setLike(user_info[0]?.like);
+      user_profile_info_state.setNickname(userNickname);
+      user_profile_info_state.setProfileImg(profileImgURL);
     };
 
     getUserData();

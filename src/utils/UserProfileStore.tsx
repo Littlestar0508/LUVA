@@ -11,11 +11,11 @@ interface State {
 
 // 함수 타입
 interface Actions {
-  setNickname: () => void;
-  setProfileImg: () => void;
-  setHobby: () => void;
-  setLike: () => void;
-  setPlace: () => void;
+  setNickname: (nickname: string) => void;
+  setProfileImg: (profile_url: string) => void;
+  setHobby: (hobby: string) => void;
+  setLike: (like: number) => void;
+  setPlace: (place: string) => void;
 }
 
 type Store = State & Actions;
@@ -27,33 +27,33 @@ const useUserProfileStore = create<Store>((set) => ({
   like: 0,
   place: "대한민국",
 
-  setNickname: () => {
-    set((state) => ({
-      nickname: state.nickname,
+  setNickname: (nickname) => {
+    set(() => ({
+      nickname,
     }));
   },
 
-  setProfileImg: () => {
-    set((state) => ({
-      profile_img: state.profile_img,
+  setProfileImg: (profile_url) => {
+    set(() => ({
+      profile_img: profile_url,
     }));
   },
 
-  setHobby: () => {
-    set((state) => ({
-      hobby: state.hobby,
+  setHobby: (hobby) => {
+    set(() => ({
+      hobby,
     }));
   },
 
-  setLike: () => {
-    set((state) => ({
-      like: state.like,
+  setLike: (like) => {
+    set(() => ({
+      like,
     }));
   },
 
-  setPlace: () => {
-    set((state) => ({
-      place: state.place,
+  setPlace: (place) => {
+    set(() => ({
+      place,
     }));
   },
 }));

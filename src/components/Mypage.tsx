@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import useUserProfileStore from "../utils/UserProfileStore";
+import { FaHeart } from "react-icons/fa";
 
 function Mypage() {
+  const profile_info = useUserProfileStore();
   const navigate = useNavigate();
 
   const moveToEditProfile = () => {
@@ -10,8 +13,18 @@ function Mypage() {
   return (
     <>
       <div className="flex px-10 py-5 gap-5">
-        <img src="/basic_profile.png" className="w-20 rounded-full" />
-        <p>닉네임</p>
+        <img src={profile_info.profile_img} className="w-20 rounded-full" />
+        <div className="flex flex-col justify-around">
+          <p className="text-luva-text-strong font-bold text-2xl">
+            {profile_info.nickname}
+          </p>
+          <div className="flex gap-2 items-center">
+            <FaHeart size={24} className="fill-luva-like" />
+            <p className="text-2xl text-luva-text-strong">
+              {profile_info.like}
+            </p>
+          </div>
+        </div>
       </div>
       <div className="flex gap-4 justify-center text-lg py-4">
         <button
@@ -27,14 +40,14 @@ function Mypage() {
           프로필 공유
         </button>
       </div>
-      <div className="flex flex-col gap-2 text-xl">
-        <p>취미 : </p>
-        <p className="border-b">위치 : </p>
+      <div className="flex flex-col gap-2 text-xl text-luva-text-strong">
+        <p>취미 : {profile_info.hobby}</p>
+        <p className="border-b">위치 : {profile_info.place}</p>
         <p>인증 계정</p>
         <p className="text-base border-b">ㅁㄴㅇㄹ@ㅜㅁㅇㄹ.com</p>
         <p className="border-b">공지 사항</p>
         <p>로그 아웃</p>
-        <p className="border-b">회원 탈퇴</p>
+        <p>회원 탈퇴</p>
       </div>
     </>
   );
