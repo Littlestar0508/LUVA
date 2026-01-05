@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../utils/SupabaseClient";
 
+type LogoutProps = React.ComponentProps<"button">;
+
 // 로그아웃 버튼
-function Logout() {
+function Logout({ className }: LogoutProps) {
   const navigate = useNavigate();
 
   const logOut = async () => {
@@ -14,7 +16,7 @@ function Logout() {
 
   return (
     <>
-      <button onClick={logOut} className="text-white">
+      <button onClick={logOut} className={className}>
         로그아웃
       </button>
     </>

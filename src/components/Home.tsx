@@ -56,6 +56,7 @@ function Home() {
       user_profile_info_state.setLike(user_info[0]?.like);
       user_profile_info_state.setNickname(userNickname);
       user_profile_info_state.setProfileImg(profileImgURL);
+      user_profile_info_state.setEmail(user_metadata.email);
     };
 
     getUserData();

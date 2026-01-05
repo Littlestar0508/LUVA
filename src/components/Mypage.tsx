@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import useUserProfileStore from "../utils/UserProfileStore";
 import { FaHeart } from "react-icons/fa";
+import Logout from "./Logout";
 
 function Mypage() {
   const profile_info = useUserProfileStore();
@@ -44,10 +45,12 @@ function Mypage() {
         <p>취미 : {profile_info.hobby}</p>
         <p className="border-b">위치 : {profile_info.place}</p>
         <p>인증 계정</p>
-        <p className="text-base border-b">ㅁㄴㅇㄹ@ㅜㅁㅇㄹ.com</p>
+        <p className="text-base border-b text-luva-text">
+          {profile_info.email}
+        </p>
         <p className="border-b">공지 사항</p>
-        <p>로그 아웃</p>
-        <p>회원 탈퇴</p>
+        <Logout className="text-luva-warning text-start" />
+        <p className="text-luva-danger">회원탈퇴</p>
       </div>
     </>
   );

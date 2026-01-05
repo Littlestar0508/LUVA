@@ -7,6 +7,7 @@ interface State {
   hobby: string;
   like: number;
   place: string;
+  email: string;
 }
 
 // 함수 타입
@@ -16,6 +17,7 @@ interface Actions {
   setHobby: (hobby: string) => void;
   setLike: (like: number) => void;
   setPlace: (place: string) => void;
+  setEmail: (email: string) => void;
 }
 
 type Store = State & Actions;
@@ -26,6 +28,7 @@ const useUserProfileStore = create<Store>((set) => ({
   hobby: "취미를 설정해주시길 바랍니다.",
   like: 0,
   place: "대한민국",
+  email: "알 수 없습니다.",
 
   setNickname: (nickname) => {
     set(() => ({
@@ -54,6 +57,12 @@ const useUserProfileStore = create<Store>((set) => ({
   setPlace: (place) => {
     set(() => ({
       place,
+    }));
+  },
+
+  setEmail: (email) => {
+    set(() => ({
+      email,
     }));
   },
 }));
