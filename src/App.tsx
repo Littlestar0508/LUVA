@@ -8,6 +8,7 @@ import Home from "./components/Home";
 import Chat from "./components/Chat";
 import Search from "./components/Search";
 import Mypage from "./components/Mypage";
+import EditProfile from "./components/EditProfile";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/chat" element={<Chat />} />
           <Route path="/search" element={<Search />} />
           <Route path="/mypage" element={<Mypage />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
           {/* 기본으로 나타나게 될 화면은 최후에 로그인 유지 구현 후 변경 예정 */}
         </Route>
       </Routes>
