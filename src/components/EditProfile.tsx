@@ -124,10 +124,23 @@ function EditProfile() {
         .upload(`${user_profile.id}.png`, file, {
           upsert: true,
           contentType: file.type,
+          cacheControl: "0",
         });
 
       if (error) throw error;
     }
+
+    // 페이지 이동 전 마이페이지에 즉각적으로 수정된 사항을 반영하기 위한 상태 정보 업데이트
+    const { data: new_profile_url } = supabase.storage
+      .from("profile_img")
+      .getPublicUrl(`${user_profile.id}.png`);
+
+    const path = `${new_profile_url.publicUrl}?v=${Date.now()}`;
+
+    user_profile.setProfileImg(path);
+    user_profile.setHobby(hobby);
+    user_profile.setPlace(place);
+    user_profile.setNickname(nickname);
 
     navigate("/mypage");
   };
