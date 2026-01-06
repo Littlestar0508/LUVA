@@ -127,9 +127,9 @@ function EditProfile() {
         });
 
       if (error) throw error;
-
-      navigate("/mypage");
     }
+
+    navigate("/mypage");
   };
 
   return (
