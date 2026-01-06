@@ -6,6 +6,7 @@ interface State {
   isLoggedIn: boolean;
   isLoading: boolean;
   init: boolean;
+  isLoaded: boolean;
 }
 
 // 함수 타입
@@ -13,6 +14,7 @@ interface Actions {
   setIsLoggedIn: (session: boolean) => void;
   setIsLoading: (loading: boolean) => void;
   setInit: (init: boolean) => void;
+  setIsLoaded: (loaded: boolean) => void;
 }
 
 type Store = State & Actions;
@@ -23,6 +25,7 @@ const useAuthStatusStore = create<Store>()(
       isLoggedIn: false,
       isLoading: true,
       init: false,
+      isLoaded: false,
 
       setIsLoggedIn: (loginState) =>
         set(() => ({
@@ -37,6 +40,11 @@ const useAuthStatusStore = create<Store>()(
       setInit: (init) =>
         set(() => ({
           init,
+        })),
+
+      setIsLoaded: (loaded) =>
+        set(() => ({
+          isLoaded: loaded,
         })),
     }),
     {

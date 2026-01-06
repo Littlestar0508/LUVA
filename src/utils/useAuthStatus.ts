@@ -8,7 +8,6 @@ function useAuthStatus() {
 
   useEffect(() => {
     if (init) return;
-
     setInit(true);
 
     // 로그인 된 상태인지 체크
