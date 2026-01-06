@@ -1,41 +1,40 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { supabase } from "../utils/SupabaseClient";
+import useAuthStatusStore from "./AuthStatusStore";
 
 // 로그인 상태를 관리하는 custom hook
 function useAuthStatus() {
-  const [loading, setLoading] = useState(true);
-  const [isAuthed, setIsAuthed] = useState(false);
+  const init = useAuthStatusStore((s) => s.init);
+  const setInit = useAuthStatusStore((s) => s.setInit);
+  const setIsLoading = useAuthStatusStore((s) => s.setIsLoading);
+  const setIsLoggedIn = useAuthStatusStore((s) => s.setIsLoggedIn);
 
   useEffect(() => {
-    // 1회만 확인하기 위한 장치
-    let chk = true;
+    if (init) return;
+
+    setInit(true);
 
     // 로그인 된 상태인지 체크
     supabase.auth.getSession().then(({ data, error }) => {
-      if (!chk) return;
       if (error) console.error(error);
-      setIsAuthed(!!data.session);
-      setLoading(false);
+      setIsLoggedIn(!!data.session);
+      setIsLoading(false);
     });
 
-    // 로그인, 로그아웃으로 인한 authentication 변화 관찰
+    // 로그인/로그아웃 변화 관찰
     const { data: listener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
-        if (!chk) return;
-        setIsAuthed(!!session);
-        setLoading(false);
+        setIsLoggedIn(!!session);
+        setIsLoading(false);
       }
     );
 
     // 이후 모든 처리가 마무리 되면 escape
     // 초기 상태로 되돌리기
     return () => {
-      chk = false;
       listener.subscription.unsubscribe();
     };
-  }, []);
-
-  return { loading, isAuthed };
+  }, [init, setInit, setIsLoggedIn, setIsLoading]);
 }
 
 export default useAuthStatus;

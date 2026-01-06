@@ -1,13 +1,13 @@
 import { Navigate } from "react-router-dom";
-import useAuthStatus from "../utils/useAuthStatus";
 import type { JSX } from "react";
+import useAuthStatusStore from "../utils/AuthStatusStore";
 
 // 로그인 이후에 뒤로가기 방지
 function LoginGuard({ children }: { children: JSX.Element }) {
-  const { loading, isAuthed } = useAuthStatus();
+  const { isLoading, isLoggedIn } = useAuthStatusStore();
 
-  if (loading) return null;
-  if (isAuthed) return <Navigate to="/" replace />;
+  if (isLoading) return null;
+  if (isLoggedIn) return <Navigate to="/home" replace />;
 
   return children;
 }
