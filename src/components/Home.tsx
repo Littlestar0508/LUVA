@@ -18,6 +18,7 @@ function Home() {
   };
 
   useEffect(() => {
+    console.log(user_profile.id);
     const getUserData = async () => {
       const { data, error } = await supabase.auth.getSession();
       const { data: user_info, error: user_info_error } = await supabase
@@ -25,17 +26,13 @@ function Home() {
         .select()
         .eq("user_id", data.session?.user.id);
 
-      const { data: profile_info } = supabase.storage
-        .from("profile_img")
-        .getPublicUrl(`${user_profile.id}.png`);
-
       if (error) throw error;
       if (user_info_error) throw user_info_error;
 
       const user = data.session?.user;
       const user_metadata = user?.user_metadata ?? {};
 
-      const profile_path = `${profile_info.publicUrl}?v=${Date.now()}`;
+      const profile_path = `${user_info[0].profile_img}?v=${Date.now()}`;
 
       const profileImgURL =
         profile_path ??
