@@ -11,6 +11,9 @@ function EditProfile() {
   const [img, setImg] = useState<string | ArrayBuffer | null>(
     user_profile.profile_img
   );
+  const [textLength, setTextLength] = useState<number>(
+    user_profile.nickname.length
+  );
 
   // 파일 크기를 5MB로 제한하기 위한 함수
   const checkFileSize = (file: File) => {
@@ -55,6 +58,11 @@ function EditProfile() {
     fileInputRef.current?.click();
   };
 
+  const checkNicknameLength = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const currentTextLength = e.target.value.length;
+    setTextLength(currentTextLength);
+  };
+
   // 폼 제출 이벤트
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -70,6 +78,7 @@ function EditProfile() {
     const file =
       profileImg instanceof File && profileImg.size > 0 ? profileImg : null;
 
+    // 닉네임과 거주지역, 취미를 최소 2자 이상 받기
     if (nickname.length <= 1) {
       toast("닉네임은 최소 2자에서 최대 10자 사이로 입력해주시기 바랍니다.", {
         duration: 2000,
@@ -97,6 +106,7 @@ function EditProfile() {
       return;
     }
 
+    // 유저 정보 업데이트
     await supabase
       .from("user_info")
       .update({
@@ -107,8 +117,7 @@ function EditProfile() {
       .eq("user_id", user_profile.id)
       .select("");
 
-    navigate("/mypage");
-
+    // 전달받은 파일이 있다면 supabase에서 이미지 교체
     if (file) {
       const { error } = await supabase.storage
         .from("profile_img")
@@ -118,6 +127,8 @@ function EditProfile() {
         });
 
       if (error) throw error;
+
+      navigate("/mypage");
     }
   };
 
@@ -143,7 +154,7 @@ function EditProfile() {
           alt="프로필 사진 변경"
         />
         <label className="w-4/5 text-luva-text-strong flex flex-col gap-1">
-          닉네임 설정
+          닉네임 ({textLength + "/10"})
           <input
             type="text"
             name="nickname"
@@ -152,6 +163,7 @@ function EditProfile() {
             placeholder="닉네임은 2글자 이상, 10자 이하로 작성해주시기 바랍니다."
             maxLength={10}
             defaultValue={user_profile.nickname}
+            onChange={checkNicknameLength}
           ></input>
         </label>
         <label className="w-4/5 text-luva-text-strong flex flex-col gap-1">
