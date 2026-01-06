@@ -4,10 +4,7 @@ import useAuthStatusStore from "./AuthStatusStore";
 
 // 로그인 상태를 관리하는 custom hook
 function useAuthStatus() {
-  const init = useAuthStatusStore((s) => s.init);
-  const setInit = useAuthStatusStore((s) => s.setInit);
-  const setIsLoading = useAuthStatusStore((s) => s.setIsLoading);
-  const setIsLoggedIn = useAuthStatusStore((s) => s.setIsLoggedIn);
+  const { init, setInit, setIsLoggedIn, setIsLoading } = useAuthStatusStore();
 
   useEffect(() => {
     if (init) return;

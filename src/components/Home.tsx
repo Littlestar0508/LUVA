@@ -18,7 +18,6 @@ function Home() {
   };
 
   useEffect(() => {
-    console.log(user_profile.id);
     const getUserData = async () => {
       const { data, error } = await supabase.auth.getSession();
       const { data: user_info, error: user_info_error } = await supabase
