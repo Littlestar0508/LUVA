@@ -42,6 +42,13 @@ function ChatContent() {
     else console.error(error);
   };
 
+  // 엔터키로 이벤트 활성화
+  const sendByEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      send();
+    }
+  };
+
   // 초기 렌더링
   useEffect(() => {
     if (!chat_room_id) return;
@@ -95,7 +102,7 @@ function ChatContent() {
 
   return (
     <>
-      <div className="h-18 absolute top-0 right-0 left-0 text-center content-center border-b-2 border-luva-line text-2xl">
+      <div className="h-18 absolute top-0 right-0 left-0 text-center content-center border-b-2 border-luva-line text-2xl bg-luva-bg-0">
         상대방
       </div>
       <div className="flex flex-col gap-2 pt-18">
@@ -125,7 +132,8 @@ function ChatContent() {
           <input
             value={text}
             onChange={(e) => setText(e.target.value)}
-            className="bg-luva-text-strong text-luva-bg-1 p-2 flex-3 rounded-md"
+            onKeyDown={(e) => sendByEnter(e)}
+            className="bg-luva-text-strong text-luva-bg-1 p-2 flex-3 rounded-md whitespace-pre-wrap break-all"
           />
           <button
             className="bg-luva-chat p-2 flex-1 text-luva-bg-0 font-bold rounded-md"
