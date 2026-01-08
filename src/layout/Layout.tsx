@@ -14,7 +14,8 @@ function Layout() {
       </main>
 
       {/* 항상 화면 하단에 보임 */}
-      {pathname === "/login" ? null : pathname === "/edit-profile" ? (
+      {pathname === "/login" ||
+      pathname === "/chat-content" ? null : pathname === "/edit-profile" ? (
         <EditProfileFooter />
       ) : (
         <Footer />
