@@ -25,6 +25,7 @@ function ChatContent() {
     return dayjs(time).format("YYYY-MM-DD HH:mm");
   };
 
+  // 초기 렌더링
   useEffect(() => {
     if (!chat_room_id) return;
 
@@ -47,6 +48,34 @@ function ChatContent() {
     })();
   }, [chat_room_id]);
 
+  // realtime
+  useEffect(() => {
+    if (!chat_room_id) return;
+
+    const channel = supabase
+      .channel(`room:${chat_room_id}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "chat_messages",
+          filter: `room_id=eq.${chat_room_id}`,
+        },
+        (payload) => {
+          const newMsg = payload.new as ChatMessage;
+          setMessages((prev) =>
+            prev.some((m) => m.id === newMsg.id) ? prev : [...prev, newMsg]
+          );
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [chat_room_id]);
+
   return (
     <>
       <div>채팅창입니다.</div>
@@ -60,7 +89,7 @@ function ChatContent() {
               >
                 {m.content}
               </p>
-              <p className="inline-block self-end text-sm -translate-y-1">
+              <p className="inline-block self-end text-sm -translate-y-2">
                 {formatTime(m.created_at)}
               </p>
             </>
@@ -72,7 +101,7 @@ function ChatContent() {
               >
                 {m.content}
               </p>
-              <p className="inline-block self-start text-sm -translate-y-1">
+              <p className="inline-block self-start text-sm -translate-y-2">
                 {formatTime(m.created_at)}
               </p>
             </>
