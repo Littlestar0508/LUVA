@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "../utils/SupabaseClient";
 import useUserProfileStore from "../utils/UserProfileStore";
@@ -24,6 +24,8 @@ function ChatContent() {
   // 이후 스켈레톤 UI 작업 예정
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState("");
+
+  const bottomRef = useRef<HTMLDivElement>(null);
 
   const formatTime = (time: string) => {
     return dayjs(time).format("YYYY-MM-DD HH:mm");
@@ -106,6 +108,11 @@ function ChatContent() {
     };
   }, [chat_room_id]);
 
+  // 화면 최하단 보여주기
+  useLayoutEffect(() => {
+    if (!loading) bottomRef.current?.scrollIntoView({ behavior: "auto" });
+  }, [loading, messages.length]);
+
   return (
     <>
       <div className="h-18 absolute top-0 right-0 left-0 text-center content-center border-b-2 border-luva-line text-2xl bg-luva-bg-0">
@@ -140,7 +147,8 @@ function ChatContent() {
             </React.Fragment>
           )
         )}
-        <div className="h-18 flex gap-2 absolute bottom-0 right-0 w-full p-4 justify-center">
+        <div ref={bottomRef} className="translate-y-1/2"></div>
+        <div className="h-18 flex gap-2 absolute bottom-0 right-0 w-full p-4 justify-center bg-luva-bg-0">
           <input
             value={text}
             onChange={(e) => setText(e.target.value)}
