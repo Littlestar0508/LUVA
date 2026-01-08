@@ -37,7 +37,9 @@ function Footer() {
       >
         <IoHomeSharp
           className={
-            isActive("/home") ? "text-luva-primary" : "text-luva-text-sub"
+            isActive("/chat") || isActive("/search") || isActive("/mypage")
+              ? "text-luva-text-sub"
+              : "text-luva-primary"
           }
           size={24}
           stroke="2px"
