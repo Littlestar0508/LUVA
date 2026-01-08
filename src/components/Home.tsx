@@ -14,7 +14,7 @@ function Home() {
   };
 
   const moveToSearch = () => {
-    navigate("/search");
+    navigate("/chat-content?id=fc05669d-4b3f-418b-a3ee-649168cbce2c");
   };
 
   useEffect(() => {
