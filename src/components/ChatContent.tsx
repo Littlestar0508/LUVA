@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "../utils/SupabaseClient";
 import useUserProfileStore from "../utils/UserProfileStore";
 import dayjs from "dayjs";
 import React from "react";
+import { IoChevronBackOutline } from "react-icons/io5";
 
 type ChatMessage = {
   id: string;
@@ -17,6 +18,7 @@ function ChatContent() {
   const [params] = useSearchParams();
   const chat_room_id = params.get("id");
   const { id } = useUserProfileStore();
+  const navigate = useNavigate();
 
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   // 이후 스켈레톤 UI 작업 예정
@@ -25,6 +27,10 @@ function ChatContent() {
 
   const formatTime = (time: string) => {
     return dayjs(time).format("YYYY-MM-DD HH:mm");
+  };
+
+  const moveToChat = () => {
+    navigate("/chat");
   };
 
   // 채팅 보내기
@@ -103,6 +109,12 @@ function ChatContent() {
   return (
     <>
       <div className="h-18 absolute top-0 right-0 left-0 text-center content-center border-b-2 border-luva-line text-2xl bg-luva-bg-0">
+        <button
+          className="absolute left-0 translate-x-1/2"
+          onClick={moveToChat}
+        >
+          <IoChevronBackOutline size={36} />
+        </button>
         상대방
       </div>
       <div className="flex flex-col gap-2 pt-18">
