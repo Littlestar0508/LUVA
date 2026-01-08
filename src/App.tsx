@@ -10,6 +10,7 @@ import Search from "./components/Search";
 import Mypage from "./components/Mypage";
 import EditProfile from "./components/EditProfile";
 import useAuthStatus from "./utils/useAuthStatus";
+import ChatContent from "./components/ChatContent";
 
 function App() {
   useAuthStatus();
@@ -34,6 +35,7 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/edit-profile" element={<EditProfile />} />
+            <Route path="/chat-content" element={<ChatContent />} />
           </Route>
         </Route>
       </Routes>
