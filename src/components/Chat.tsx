@@ -14,14 +14,39 @@ type ChatRoomList = {
 function Chat() {
   const [chatList, setChatList] = useState<ChatRoomList[]>([]);
 
+  // 채팅방 목록 불러오기
   useEffect(() => {
     const fetchChatRoomsList = async () => {
       const { data, error } = await supabase.rpc("get_chat_room_list");
 
+      if (error) return;
       setChatList(data);
     };
 
     fetchChatRoomsList();
+  }, []);
+
+  // realtime구독으로 최근 메세지 갱신 및 채팅방 리스트 갱신(실시간)
+  useEffect(() => {
+    const channelMessages = supabase
+      .channel("chat-list")
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "chat_messages",
+        },
+        async (payload) => {
+          const { data } = await supabase.rpc("get_chat_room_list");
+          if (data) setChatList(data);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channelMessages);
+    };
   }, []);
 
   return (
