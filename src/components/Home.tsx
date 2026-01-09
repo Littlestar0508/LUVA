@@ -14,7 +14,7 @@ function Home() {
   };
 
   const moveToSearch = () => {
-    navigate("/chat-content?id=fc05669d-4b3f-418b-a3ee-649168cbce2c");
+    navigate("/search");
   };
 
   useEffect(() => {
@@ -53,7 +53,6 @@ function Home() {
     getUserData();
   }, []);
 
-  // 임시 홈 페이지
   return (
     <>
       <div className="flex relative justify-center border-b pb-4">

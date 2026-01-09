@@ -19,13 +19,18 @@ function GoogleLoginButton() {
 
   return (
     <>
+      <img
+        src="/luva-logo-text.svg"
+        alt="LUVA 로고"
+        className="size-60 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-2/3"
+      />
       <button
         type="button"
         aria-label="구글로 로그인"
         className="
-            flex h-12 w-full items-center justify-center gap-2
+            h-12 w-89.5
             rounded-xl border border-gray-200 bg-white
-            text-sm font-semibold text-gray-900
+            text-base font-semibold text-gray-900 absolute bottom-10
           "
         onClick={loginWithGoogle}
       >
