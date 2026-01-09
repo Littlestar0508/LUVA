@@ -2,9 +2,9 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "../utils/SupabaseClient";
 import useUserProfileStore from "../utils/UserProfileStore";
-import dayjs from "dayjs";
 import React from "react";
 import { IoChevronBackOutline } from "react-icons/io5";
+import TimeFormatter from "../utils/TimeFormatter";
 
 type ChatMessage = {
   id: string;
@@ -26,10 +26,6 @@ function ChatContent() {
   const [text, setText] = useState("");
 
   const bottomRef = useRef<HTMLDivElement>(null);
-
-  const formatTime = (time: string) => {
-    return dayjs(time).format("YYYY-MM-DD HH:mm");
-  };
 
   const moveToChat = () => {
     navigate("/chat");
@@ -133,7 +129,7 @@ function ChatContent() {
                 {m.content}
               </p>
               <p className="inline-block self-end text-sm -translate-y-2">
-                {formatTime(m.created_at)}
+                {TimeFormatter(m.created_at)}
               </p>
             </React.Fragment>
           ) : (
@@ -142,7 +138,7 @@ function ChatContent() {
                 {m.content}
               </p>
               <p className="inline-block self-start text-sm -translate-y-2">
-                {formatTime(m.created_at)}
+                {TimeFormatter(m.created_at)}
               </p>
             </React.Fragment>
           )

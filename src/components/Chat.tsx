@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/SupabaseClient";
-import useUserProfileStore from "../utils/UserProfileStore";
+import TimeFormatter from "../utils/TimeFormatter";
 
 type ChatRoomList = {
   last_message: string;
@@ -26,7 +26,6 @@ function Chat() {
 
   return (
     <>
-      <div className="bg-luva-line">채팅창 영역입니다.</div>
       {chatList.map((m) => (
         <div className="flex items-center gap-3" key={m.room_id} id={m.room_id}>
           <img
@@ -40,7 +39,7 @@ function Chat() {
             </p>
             <p className="text-xs">{m.last_message}</p>
           </div>
-          <p className="text-xs">{m.last_message_at}</p>
+          <p className="text-xs">{TimeFormatter(m.last_message_at)}</p>
         </div>
       ))}
     </>
