@@ -28,6 +28,7 @@ function Chat() {
 
   // realtime구독으로 최근 메세지 갱신 및 채팅방 리스트 갱신(실시간)
   useEffect(() => {
+    // 최근 메세지 realtime 구독
     const channelMessages = supabase
       .channel("chat-list")
       .on(
@@ -44,8 +45,26 @@ function Chat() {
       )
       .subscribe();
 
+    // 새로운 방 생성 realtime 구독
+    const channelRooms = supabase
+      .channel("chat-room-insert")
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "chat_room",
+        },
+        async (payload) => {
+          const { data } = await supabase.rpc("get_chat_room_list");
+          if (data) setChatList(data);
+        }
+      )
+      .subscribe();
+
     return () => {
       supabase.removeChannel(channelMessages);
+      supabase.removeChannel(channelRooms);
     };
   }, []);
 
