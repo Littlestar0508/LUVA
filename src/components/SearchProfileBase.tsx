@@ -64,7 +64,19 @@ function SearchProfileBase({
   };
 
   const pressLike = async () => {
-    console.log("좋아요");
+    if (liked) {
+      await supabase
+        .from("user_likes")
+        .delete()
+        .eq("liker_id", myId)
+        .eq("liked_id", id);
+    }
+
+    if (!liked) {
+      await supabase
+        .from("user_likes")
+        .insert([{ liker_id: myId, liked_id: id }]);
+    }
 
     const nextLiked = !liked;
 
