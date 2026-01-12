@@ -7,7 +7,12 @@ function Search() {
 
   return (
     <>
-      <Swiper slidesPerView={1} className="h-full">
+      <Swiper
+        slidesPerView={1}
+        speed={500}
+        spaceBetween={20}
+        className="h-full"
+      >
         {textMap.map(() => (
           <SwiperSlide>
             <SearchProfileBase
