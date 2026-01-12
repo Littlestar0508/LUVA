@@ -16,14 +16,20 @@ type Profile = {
 function Search() {
   const [userArr, setUserArr] = useState<Profile[]>([]);
 
-  const testCode = async () => {
-    const { data } = await supabase.from("user_info").select("*");
-
-    setUserArr(data as Profile[]);
-  };
-
   useEffect(() => {
-    testCode();
+    let cancelled = false;
+
+    (async () => {
+      const { data, error } = await supabase.from("user_info").select("*");
+
+      if (error) return;
+
+      if (!cancelled) setUserArr((data ?? []) as Profile[]);
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
