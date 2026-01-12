@@ -1,4 +1,20 @@
-function SearchProfileBase() {
+type SearchProfileBaseProps = {
+  id: string;
+  src: string;
+  alt: string;
+  name: string;
+  place: string;
+  hobby: string;
+};
+
+function SearchProfileBase({
+  id,
+  src,
+  alt,
+  name,
+  place,
+  hobby,
+}: SearchProfileBaseProps) {
   const openChatRoom = () => {
     console.log("채팅열기");
   };
@@ -9,19 +25,22 @@ function SearchProfileBase() {
 
   return (
     <>
-      <div className="grid grid-col-4 grid-rows-20 h-full items-center gap-4">
+      <div
+        className="grid grid-col-4 grid-rows-20 h-full items-center gap-4"
+        key={id}
+      >
         <figure className="col-span-4 row-span-18 relative">
           <img
-            src="/basic_profile.png"
-            alt="프로필 사진"
+            src={src}
+            alt={alt}
             className="aspect-square size-full mx-auto"
           />
           <figcaption className="absolute bottom-1 left-1 bg-luva-bg-0 opacity-80 rounded-2xl p-2 text-luva-text-strong">
-            이름
+            닉네임 : {name}
             <br />
-            대한민국
+            위치 : {place}
             <br />
-            취미
+            취미 : {hobby}
           </figcaption>
         </figure>
         <button
