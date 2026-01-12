@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../utils/SupabaseClient";
 import TimeFormatter from "../utils/TimeFormatter";
 import { useNavigate } from "react-router-dom";
+import useChatPartnerStore from "../utils/ChatPartnerStore";
 
 type ChatRoomList = {
   last_message: string;
@@ -13,10 +14,12 @@ type ChatRoomList = {
 };
 
 function Chat() {
+  const { setPartnerNickname } = useChatPartnerStore();
   const navigate = useNavigate();
   const [chatList, setChatList] = useState<ChatRoomList[]>([]);
 
-  const moveToChatRoom = (params: string) => {
+  const moveToChatRoom = (params: string, partner: string) => {
+    setPartnerNickname(partner);
     navigate(`/chat-content?id=${params}`);
   };
 
@@ -85,7 +88,7 @@ function Chat() {
             type="button"
             className="flex items-center gap-3 w-full text-left"
             aria-label={`${m.partner_nickname} 님과의 채팅방 열기`}
-            onClick={() => moveToChatRoom(m.room_id)}
+            onClick={() => moveToChatRoom(m.room_id, m.partner_nickname)}
           >
             {/* 프로필 이미지 */}
             <figure className="shrink-0">

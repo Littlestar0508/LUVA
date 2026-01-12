@@ -5,6 +5,7 @@ import useUserProfileStore from "../utils/UserProfileStore";
 import React from "react";
 import { IoChevronBackOutline } from "react-icons/io5";
 import TimeFormatter from "../utils/TimeFormatter";
+import useChatPartnerStore from "../utils/ChatPartnerStore";
 
 type ChatMessage = {
   id: string;
@@ -15,6 +16,7 @@ type ChatMessage = {
 };
 
 function ChatContent() {
+  const { partnerNickname } = useChatPartnerStore();
   const [params] = useSearchParams();
   const chat_room_id = params.get("id");
   const { id } = useUserProfileStore();
@@ -111,14 +113,14 @@ function ChatContent() {
 
   return (
     <>
-      <div className="h-18 absolute top-0 right-0 left-0 text-center content-center border-b-2 border-luva-line text-2xl bg-luva-bg-0">
+      <div className="h-18 absolute top-0 right-0 left-0 text-center content-center border-b-2 border-luva-line text-2xl bg-luva-bg-0 z-50">
         <button
           className="absolute left-0 translate-x-1/2"
           onClick={moveToChat}
         >
           <IoChevronBackOutline size={36} />
         </button>
-        상대방
+        {partnerNickname}
       </div>
       <div className="flex flex-col gap-2 pt-18">
         {/* 전송자가 누군지에 따라 색상과 위치 구분 */}
@@ -137,7 +139,7 @@ function ChatContent() {
               <p className="bg-luva-primary p-2 whitespace-pre-wrap break-all max-w-4/5 rounded-xl inline-block self-start text-luva-text-strong">
                 {m.content}
               </p>
-              <p className="inline-block self-start text-sm -translate-y-2">
+              <p className="inline-block self-start text-sm -translate-y-2 z-0">
                 {TimeFormatter(m.created_at)}
               </p>
             </React.Fragment>
