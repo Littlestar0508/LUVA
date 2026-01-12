@@ -104,7 +104,9 @@ function Chat() {
                 </p>
               </header>
 
-              <p className="text-xs truncate w-4/5">{m.last_message}</p>
+              <p className="text-xs truncate w-4/5">
+                {m.last_message ?? "채팅을 열어 대화를 시작해보세요."}
+              </p>
             </article>
 
             {/* 시간 */}
