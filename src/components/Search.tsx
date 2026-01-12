@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/SupabaseClient";
+import useUserProfileStore from "../utils/UserProfileStore";
 
 type Profile = {
   user_id: string;
@@ -15,12 +16,16 @@ type Profile = {
 
 function Search() {
   const [userArr, setUserArr] = useState<Profile[]>([]);
+  const { id } = useUserProfileStore();
 
   useEffect(() => {
     let cancelled = false;
 
     (async () => {
-      const { data, error } = await supabase.from("user_info").select("*");
+      const { data, error } = await supabase
+        .from("user_info")
+        .select("*")
+        .neq("user_id", id);
 
       if (error) return;
 
