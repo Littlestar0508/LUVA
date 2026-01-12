@@ -25,6 +25,7 @@ function Search() {
   const [userArr, setUserArr] = useState<Profile[]>([]);
   const [loading, setLoading] = useState(false);
   const [hasNext, setHasNext] = useState(true);
+  const [idArr, setIdArr] = useState<string[]>([]);
 
   // 스와이퍼와 현재 몇 번 불러왔는지, 그리고 중복 setState를 방지하기 위한 ref
   const pageRef = useRef(0);
@@ -76,6 +77,20 @@ function Search() {
     }
   };
 
+  // 좋아요 누른 리스트와 눌린 리스트 불러오기
+  const getLikeIdList = async () => {
+    const { data: likeList, error } = await supabase.rpc(
+      "get_my_like_id_arrays"
+    );
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    setIdArr(likeList.outgoing_ids);
+  };
+
   useEffect(() => {
     if (!id) return;
 
@@ -86,6 +101,7 @@ function Search() {
     pageRef.current = 0;
 
     fetchNext();
+    getLikeIdList();
 
     // 언마운트 시 초기화
     return () => {
@@ -119,6 +135,7 @@ function Search() {
               place={profile.place}
               id={profile.user_id}
               name={profile.nickname}
+              likeState={idArr.includes(profile.user_id)}
             />
           </SwiperSlide>
         ))}

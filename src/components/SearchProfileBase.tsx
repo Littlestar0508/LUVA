@@ -10,6 +10,7 @@ type SearchProfileBaseProps = {
   name: string;
   place: string;
   hobby: string;
+  likeState: boolean;
 };
 
 function SearchProfileBase({
@@ -19,9 +20,10 @@ function SearchProfileBase({
   name,
   place,
   hobby,
+  likeState,
 }: SearchProfileBaseProps) {
   const navigate = useNavigate();
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(likeState);
 
   const { id: myId } = useUserProfileStore();
 
@@ -61,7 +63,7 @@ function SearchProfileBase({
     }
   };
 
-  const pressLike = () => {
+  const pressLike = async () => {
     console.log("좋아요");
 
     const nextLiked = !liked;

@@ -43,14 +43,24 @@ function Home() {
 
       user_profile.setHobby(user_info[0]?.hobby);
       user_profile.setPlace(user_info[0]?.place);
-      user_profile.setLike(user_info[0]?.like);
       user_profile.setNickname(userNickname);
       user_profile.setProfileImg(profileImgURL);
       user_profile.setEmail(user_metadata.email);
       user_profile.setId(data.session?.user.id ?? "");
     };
+    const getUserLike = async () => {
+      const { data, error } = await supabase.rpc("get_my_like_ids");
+
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      user_profile.setLike(data.incoming.length);
+    };
 
     getUserData();
+    getUserLike();
   }, []);
 
   return (
