@@ -1,9 +1,7 @@
+import SearchProfileBase from "./SearchProfileBase";
+
 function Search() {
-  return (
-    <>
-      <div className="bg-luva-like">채팅창 영역입니다.</div>
-    </>
-  );
+  return <SearchProfileBase />;
 }
 
 export default Search;
