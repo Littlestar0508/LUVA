@@ -1,9 +1,30 @@
 import SearchProfileBase from "./SearchProfileBase";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { useEffect, useState } from "react";
+import { supabase } from "../utils/SupabaseClient";
+
+type Profile = {
+  user_id: string;
+  nickname: string;
+  profile_img: string;
+  hobby: string;
+  like: number;
+  place: string;
+};
 
 function Search() {
-  const textMap = Array(10).fill(0);
+  const [userArr, setUserArr] = useState<Profile[]>([]);
+
+  const testCode = async () => {
+    const { data } = await supabase.from("user_info").select("*");
+
+    setUserArr(data as Profile[]);
+  };
+
+  useEffect(() => {
+    testCode();
+  }, []);
 
   return (
     <>
@@ -13,15 +34,15 @@ function Search() {
         spaceBetween={20}
         className="h-full"
       >
-        {textMap.map(() => (
+        {userArr.map((profile) => (
           <SwiperSlide>
             <SearchProfileBase
-              src={"/basic_profile.png"}
-              alt="프로필 사진"
-              hobby={"취미"}
-              place={"사는 곳"}
-              id={"123"}
-              name={"닉네임"}
+              src={profile.profile_img}
+              alt={profile.nickname}
+              hobby={profile.hobby}
+              place={profile.place}
+              id={profile.user_id}
+              name={profile.nickname}
             />
           </SwiperSlide>
         ))}
