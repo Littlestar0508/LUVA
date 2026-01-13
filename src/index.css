@@ -3,6 +3,7 @@
 @layer base {
   body {
     color: var(--luva-text);
+    background-color: var(--luva-bg-0);
   }
 }
 
