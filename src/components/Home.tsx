@@ -23,15 +23,34 @@ function Home() {
       const { data: user_info, error: user_info_error } = await supabase
         .from("user_info")
         .select()
-        .eq("user_id", data.session?.user.id);
+        .eq("user_id", data.session?.user.id)
+        .maybeSingle();
+
+      console.log(user_info);
 
       if (error) throw error;
-      if (user_info_error) throw user_info_error;
+      if (user_info_error) {
+        user_profile.setHobby("취미를 설정해주세요.");
+        user_profile.setPlace("위치를 설정해주세요.");
+        user_profile.setNickname("LUVA");
+        user_profile.setProfileImg("/basic_profile.png");
+
+        await supabase.from("user_info").insert([
+          {
+            user_id: data.session?.user.id,
+            nickname: "LUVA",
+            profile_img: `https://yyrwpekhbevmaigheerf.supabase.co/storage/v1/object/public/profile_img/${data.session?.user.id}.png`,
+            hobby: "취미를 설정해주세요.",
+            like: 0,
+            place: "위치를 설정해주세요.",
+          },
+        ]);
+      }
 
       const user = data.session?.user;
       const user_metadata = user?.user_metadata ?? {};
 
-      const profile_path = `${user_info[0].profile_img}?v=${Date.now()}`;
+      const profile_path = `${user_info.profile_img}?v=${Date.now()}`;
 
       const profileImgURL =
         profile_path ??
@@ -39,10 +58,10 @@ function Home() {
         user_metadata.picture ??
         null;
 
-      const userNickname = user_info[0].nickname ?? user_metadata.full_name;
+      const userNickname = user_info.nickname ?? user_metadata.full_name;
 
-      user_profile.setHobby(user_info[0]?.hobby);
-      user_profile.setPlace(user_info[0]?.place);
+      user_profile.setHobby(user_info?.hobby);
+      user_profile.setPlace(user_info?.place);
       user_profile.setNickname(userNickname);
       user_profile.setProfileImg(profileImgURL);
       user_profile.setEmail(user_metadata.email);
@@ -52,8 +71,7 @@ function Home() {
       const { data, error } = await supabase.rpc("get_my_like_ids");
 
       if (error) {
-        console.error(error);
-        return;
+        user_profile.setLike(0);
       }
 
       user_profile.setLike(data.incoming.length);
