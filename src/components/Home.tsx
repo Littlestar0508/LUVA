@@ -41,7 +41,7 @@ function Home() {
             nickname: "LUVA",
             profile_img: `https://yyrwpekhbevmaigheerf.supabase.co/storage/v1/object/public/profile_img/${data.session?.user.id}.png`,
             hobby: "취미를 설정해주세요.",
-            like: 0,
+            like: 1,
             place: "위치를 설정해주세요.",
           },
         ]);
