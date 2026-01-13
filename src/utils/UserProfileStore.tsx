@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 // 상태 변수 타입
 interface State {
@@ -20,11 +21,12 @@ interface Actions {
   setPlace: (place: string) => void;
   setEmail: (email: string) => void;
   setId: (id: string) => void;
+  reset: () => void;
 }
 
 type Store = State & Actions;
 
-const useUserProfileStore = create<Store>((set) => ({
+const initialState: State = {
   nickname: "LUVA",
   profile_img: "/basic_profile.png",
   hobby: "취미를 설정해주시길 바랍니다.",
@@ -32,48 +34,37 @@ const useUserProfileStore = create<Store>((set) => ({
   place: "대한민국",
   email: "알 수 없습니다.",
   id: "",
+};
 
-  setNickname: (nickname) => {
-    set(() => ({
-      nickname,
-    }));
-  },
+const useUserProfileStore = create<Store>()(
+  persist(
+    (set) => ({
+      ...initialState,
 
-  setProfileImg: (profile_url) => {
-    set(() => ({
-      profile_img: profile_url,
-    }));
-  },
+      setNickname: (nickname) => set({ nickname }),
+      setProfileImg: (profile_url) => set({ profile_img: profile_url }),
+      setHobby: (hobby) => set({ hobby }),
+      setLike: (like) => set({ like }),
+      setPlace: (place) => set({ place }),
+      setEmail: (email) => set({ email }),
+      setId: (id) => set({ id }),
 
-  setHobby: (hobby) => {
-    set(() => ({
-      hobby,
-    }));
-  },
-
-  setLike: (like) => {
-    set(() => ({
-      like,
-    }));
-  },
-
-  setPlace: (place) => {
-    set(() => ({
-      place,
-    }));
-  },
-
-  setEmail: (email) => {
-    set(() => ({
-      email,
-    }));
-  },
-
-  setId: (id) => {
-    set(() => ({
-      id,
-    }));
-  },
-}));
+      // 로그아웃 / 계정 전환 대비
+      reset: () => set(initialState),
+    }),
+    {
+      name: "user-profile-store", // localStorage key
+      partialize: (state) => ({
+        nickname: state.nickname,
+        profile_img: state.profile_img,
+        hobby: state.hobby,
+        like: state.like,
+        place: state.place,
+        email: state.email,
+        id: state.id,
+      }),
+    }
+  )
+);
 
 export default useUserProfileStore;
