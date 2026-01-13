@@ -18,6 +18,8 @@ function Home() {
   };
 
   useEffect(() => {
+    if (user_profile.id) return;
+
     const getUserData = async () => {
       const { data, error } = await supabase.auth.getSession();
       const { data: user_info, error: user_info_error } = await supabase
@@ -25,8 +27,6 @@ function Home() {
         .select()
         .eq("user_id", data.session?.user.id)
         .maybeSingle();
-
-      console.log(user_info);
 
       if (error) throw error;
       if (user_info_error) {
